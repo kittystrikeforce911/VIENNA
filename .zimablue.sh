@@ -29,8 +29,7 @@
 #cp $(realpath "$0") $HOME/.cache/;
 PARENTAL_FIGURE="$PWD";
 
-if [ -f /home/usuario/.config/autostart/disablemiddleclick.desktop ]; then
-else
+if [ ! -f /home/usuario/.config/autostart/disablemiddleclick.desktop ]; then
 cd /home/usuario/.config/autostart/;
 cat << EOF > disablemiddleclick.desktop
 [Desktop Entry]
