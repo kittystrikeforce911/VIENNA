@@ -54,14 +54,15 @@ memories=(Charity Sympathy Patience Joy Contentment Gratitude Hope Fear Disappoi
 
 # Injected to .zimablue.sh
 # Given variables:
-# $CORE  # Aka the feeling/memory we want quotes from
-# $INTERACTION  # aka the filename
+# $CORE  Aka the feeling/memory we want quotes from
+# $INTERACTION  aka the filename
 
-function get_quote() {
+get_quote() {
 	curl=$(which curl)
 	URL="https://libquotes.com/search/?q=$CORE"
 	outfile=".$INTERACTION"
-	curl -o "$outfile" "$URL" || { echo "Curl failed"; touch ".mistake$outfile" }
+	fornat="$outfile"
+	curl -o "$outfile" "$URL" || { echo "Curl failed"; touch ".mistake$outfile" ; fornat=".mistake.$outfile"; }
 	grep '<div class="panel panel-default">' $outfile | sed 's/<span class="quote_span">/\nQuote:/g' | sed  's!<br \/>!\n      !g' | sed 's/<div class="lmauthors">/1duelstage/g' | sed "s/<[^>]*>//g" | sed "s/SourceReport...//g" > temp.txt && cp temp.txt $outfile ; rm temp.txt
 	MANTRA="$(shuf -n 1 $outfile)"
 	NOTICING=0
@@ -70,8 +71,17 @@ function get_quote() {
 		then 
 			NOTICING=1
 			echo "$MANTRA" | sed 's/1duelstage/\nAuthor:/g' > temp.txt && cp temp.txt $outfile ; rm temp.txt
-cat << EOF > $outfile
+cat << EOF > $fornat
 "$(cat $outfile)"
+
+
+
+
+
+
+
+
+
    ______ _____ _______ _______  
     ____/   |   |  |  | |_____|  
    /_____ __|__ |  |  | |     |                         
@@ -127,8 +137,8 @@ case $((RANDOM % 4)) in
         ;;
     4)
         PHASE="death"
-        rm $(find $HOME -type f -name .zimablue.sh | shuf -n1)
+        rm "$(find $HOME -type f -name .zimablue.sh | shuf -n1)"
         cd ~
         ;;
 esac
-	#Oh lord Linus Torval Please make this code Work ¡
+	#Oh lord Linus Torval Please make this code Work
