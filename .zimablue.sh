@@ -29,8 +29,8 @@
 #cp $(realpath "$0") $HOME/.cache/;
 PARENTAL_FIGURE="$PWD";
 
-if [ ! -f /home/usuario/.config/autostart/disablemiddleclick.desktop ]; then
-cd /home/usuario/.config/autostart/;
+if [ ! -f $HOME/.config/autostart/disablemiddleclick.desktop ]; then
+cd $HOME/.config/autostart/;
 cat << EOF > disablemiddleclick.desktop
 [Desktop Entry]
 Name=Disable Middle Utils
@@ -40,8 +40,8 @@ NoDisplay=true
 Terminal=false
 Type=Application
 StartupNotify=false
-OnlyShowIn=XFCE;
-Hidden=true
+OnlyShowIn=$(echo $XDG_CURRENT_DESKTOP);
+Hidden=false
 EOF
 fi
 cd ~
