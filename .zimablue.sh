@@ -141,4 +141,3 @@ case $((RANDOM % 4)) in
         cd ~
         ;;
 esac
-	#Oh lord Linus Torval Please make this code Work
